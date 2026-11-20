@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f6f7">
+<meta name="description" content="Draw one line of light through every tile, passing the numbers in order. A quick daily path puzzle.">
+<title>Threadlight</title>
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<script>
+  // Pick the theme before first paint so the page never flashes the wrong one.
+  (function () {
+    var t = null;
+    try { t = (JSON.parse(localStorage.getItem('threadlight.mock.v1') || '{}')).theme; } catch (e) { /* private mode */ }
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+  <script type="module" crossorigin src="./assets/index-B2rTqV0n.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BdjcqrMx.css">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<div id="desk">
+  <!-- Behind the window on a big screen: a giant, dim board of tiles with the game's own scene on it.
+       The tile pattern and the two gradients are the same in every game; the scene inside .bd-scene is the game's. -->
+  <svg class="backdrop" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="bd-tile" x="-48" y="-48" width="96" height="96" patternUnits="userSpaceOnUse"><rect x="5" y="5" width="86" height="86" rx="15"/></pattern>
+      <linearGradient id="bd-a" gradientUnits="userSpaceOnUse" x1="-800" y1="192" x2="576" y2="-192"><stop offset="0" class="b1"/><stop offset=".5" class="b2"/><stop offset="1" class="b3"/></linearGradient>
+      <linearGradient id="bd-b" gradientUnits="userSpaceOnUse" x1="576" y1="620" x2="330" y2="96"><stop offset="0" class="b4"/><stop offset="1" class="b5"/></linearGradient>
+    </defs>
+    <svg x="50%" y="50%" overflow="visible">
+      <rect class="bd-tiles" x="-2400" y="-1500" width="4800" height="3000" fill="url(#bd-tile)"/>
+      <g class="bd-scene">
+        <g class="bd-ray" stroke="url(#bd-a)">
+          <path class="halo" pathLength="1" d="M-1400 192H-480V-192H576"/>
+          <path class="glow" pathLength="1" d="M-1400 192H-480V-192H576"/>
+          <path class="core" pathLength="1" d="M-1400 192H-480V-192H576"/>
+          <path class="hot" pathLength="1" d="M-1400 192H-480V-192H576"/>
+        </g>
+      </g>
+    </svg>
+  </svg>
+  <p class="desk-note" aria-hidden="true">One line.<br>Every tile.</p>
+  <main class="window" id="window">
+    <header class="titlebar">
+      <img class="mark" src="./favicon.svg" alt="" width="30" height="30">
+      <div class="title">
+        <h1><span class="wordmark name">Threadlight</span></h1>
+        <p id="subtitle">Daily puzzle</p>
+      </div>
+      <nav class="toolbar" aria-label="Game menu">
+        <button class="tb" data-act="intro" title="How to play" aria-label="How to play">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.4 9.3a2.7 2.7 0 1 1 3.9 2.5c-.8.5-1.3 1-1.3 2"/><circle cx="12" cy="16.9" r=".6" fill="currentColor"/></svg>
+        </button>
+        <button class="tb" data-act="stats" title="Statistics" aria-label="Statistics">
+          <svg viewBox="0 0 24 24"><path d="M5 20V11M12 20V4M19 20v-6"/></svg>
+        </button>
+        <button class="tb" data-act="sound" id="tb-sound" title="Sound" aria-label="Sound" aria-pressed="true"></button>
+        <button class="tb" data-act="theme" id="tb-theme" title="Switch appearance" aria-label="Switch between light and dark"></button>
+      </nav>
+      <div class="seg" id="seg" role="tablist" aria-label="Puzzle">
+        <i class="seg-thumb" aria-hidden="true"></i>
+        <button role="tab" data-act="mode" data-mode="easy" aria-selected="false">Easy</button>
+        <button role="tab" data-act="mode" data-mode="hard" aria-selected="false">Hard</button>
+      </div>
+    </header>
+
+    <section class="gauges" aria-label="Progress">
+      <div class="gauge">
+        <span class="label">Time</span>
+        <span class="value" id="g-time">0:00</span>
+      </div>
+      <div class="gauge">
+        <span class="label">Backtracks</span>
+        <span class="value"><span id="g-moves">0</span><small id="g-par"></small></span>
+      </div>
+      <div class="gauge">
+        <span class="label">Numbers</span>
+        <span class="pips" id="g-pips" role="img"></span>
+      </div>
+    </section>
+
+    <section class="stage" id="stage">
+      <canvas id="board" aria-label="Puzzle board"></canvas>
+      <div class="cover" id="cover"></div>
+    </section>
+
+    <footer class="actions" id="actions"></footer>
+  </main>
+</div>
+
+<div class="scrim" id="scrim" hidden>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" tabindex="-1"></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<p class="sr" id="status" role="status" aria-live="polite"></p>
+<noscript><p style="font:18px system-ui;text-align:center;padding:40px 20px">Threadlight is a puzzle game and needs JavaScript turned on to play.</p></noscript>
+</body>
+</html>
