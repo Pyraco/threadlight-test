@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f6f6f7">
+<meta name="theme-color" content="#242634">
 <meta name="description" content="Draw one line of light through every tile, passing the numbers in order. A quick daily path puzzle.">
 <title>Threadlight</title>
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
@@ -13,12 +13,12 @@
   (function () {
     var t = null;
     try { t = (JSON.parse(localStorage.getItem('threadlight.mock.v1') || '{}')).theme; } catch (e) { /* private mode */ }
-    if (t !== 'light' && t !== 'dark') t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    if (t !== 'light' && t !== 'dark') t = 'dark'; // dark unless the player has chosen light with the appearance button
     document.documentElement.dataset.theme = t;
   })();
 </script>
-  <script type="module" crossorigin src="./assets/index-qJds6ch5.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CPztwOiW.css">
+  <script type="module" crossorigin src="./assets/index-CLDYU7z3.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CLF2jnMb.css">
   <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
